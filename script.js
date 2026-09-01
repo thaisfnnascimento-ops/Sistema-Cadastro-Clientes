@@ -8,8 +8,9 @@ formulario.addEventListener("submit", function(event) {
     const email = document.getElementById("email").value;
     const telefone = document.getElementById("telefone").value;
 
-    const cliente = document.createElement("div");
-
+const cliente = document.createElement("div");
+cliente.classList.add("card-cliente");
+    
     cliente.innerHTML = `
         <p><strong>Nome:</strong> ${nome}</p>
         <p><strong>E-mail:</strong> ${email}</p>
