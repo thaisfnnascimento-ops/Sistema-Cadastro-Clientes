@@ -80,7 +80,9 @@ button[type="submit"]:hover {
 
 .card-cliente button {
     width: 48%;
+    display: inline-block;
     color: white;
+    box-sizing: border-box;
 }
 
 .card-cliente button:first-of-type {
