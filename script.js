@@ -2,45 +2,29 @@ const formulario = document.getElementById("formCliente");
 const listaClientes = document.getElementById("listaClientes");
 
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
-let clienteEditando = null;
+let indiceEditando = null;
 
 function mostrarClientes() {
     listaClientes.innerHTML = "";
 
-    clientes.forEach((cliente, index) => {
+    clientes.forEach((cliente, indice) => {
         const card = document.createElement("div");
+
         card.classList.add("card-cliente");
 
         card.innerHTML = `
-            <p><strong>${cliente.nome}</strong></p>
-            <p>E-mail: ${cliente.email}</p>
-            <p>Telefone: ${cliente.telefone}</p>
+            <p><strong>Nome:</strong> ${cliente.nome}</p>
+            <p><strong>E-mail:</strong> ${cliente.email}</p>
+            <p><strong>Telefone:</strong> ${cliente.telefone}</p>
 
-            <button type="button" class="btn-editar">Editar</button>
-            <button type="button" class="btn-excluir">Excluir</button>
+            <button onclick="editarCliente(${indice})">
+                Editar
+            </button>
 
-            <hr>
+            <button onclick="excluirCliente(${indice})">
+                Excluir
+            </button>
         `;
-
-        // Editar
-        card.querySelector(".btn-editar").addEventListener("click", function() {
-            document.getElementById("nome").value = cliente.nome;
-            document.getElementById("email").value = cliente.email;
-            document.getElementById("telefone").value = cliente.telefone;
-
-            clienteEditando = index;
-
-            formulario.querySelector("button").textContent = "Salvar alteração";
-        });
-
-        // Excluir
-        card.querySelector(".btn-excluir").addEventListener("click", function() {
-            clientes.splice(index, 1);
-
-            localStorage.setItem("clientes", JSON.stringify(clientes));
-
-            mostrarClientes();
-        });
 
         listaClientes.appendChild(card);
     });
@@ -53,24 +37,25 @@ formulario.addEventListener("submit", function(event) {
     const email = document.getElementById("email").value;
     const telefone = document.getElementById("telefone").value;
 
-    const novoCliente = {
+    const cliente = {
         nome: nome,
         email: email,
         telefone: telefone
     };
 
-    // Editando
-    if (clienteEditando !== null) {
-        clientes[clienteEditando] = novoCliente;
+    if (indiceEditando === null) {
 
-        clienteEditando = null;
+        // Cadastrar novo cliente
+        clientes.push(cliente);
 
-        formulario.querySelector("button").textContent = "Cadastrar";
-    } 
-    
-    // Novo cadastro
-    else {
-        clientes.push(novoCliente);
+    } else {
+
+        // Atualizar cliente
+        clientes[indiceEditando] = cliente;
+
+        indiceEditando = null;
+
+        document.querySelector("button[type='submit']").textContent = "Cadastrar";
     }
 
     localStorage.setItem("clientes", JSON.stringify(clientes));
@@ -79,5 +64,37 @@ formulario.addEventListener("submit", function(event) {
 
     mostrarClientes();
 });
+
+function editarCliente(indice) {
+
+    const cliente = clientes[indice];
+
+    document.getElementById("nome").value = cliente.nome;
+    document.getElementById("email").value = cliente.email;
+    document.getElementById("telefone").value = cliente.telefone;
+
+    indiceEditando = indice;
+
+    document.querySelector("button[type='submit']").textContent = "Salvar alterações";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function excluirCliente(indice) {
+
+    const confirmar = confirm("Tem certeza que deseja excluir este cliente?");
+
+    if (confirmar) {
+
+        clientes.splice(indice, 1);
+
+        localStorage.setItem("clientes", JSON.stringify(clientes));
+
+        mostrarClientes();
+    }
+}
 
 mostrarClientes();
