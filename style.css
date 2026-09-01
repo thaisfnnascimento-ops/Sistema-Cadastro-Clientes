@@ -1,19 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    margin: 0;
+    background-color: #f5f5f5;
+    color: #333;
     padding: 40px;
-    color: #222;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 30px;
+    color: #333;
 }
 
+h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Formulário */
 form {
     max-width: 400px;
-    margin: 0 auto 40px;
+    margin: 0 auto;
     background-color: white;
     padding: 25px;
     border-radius: 12px;
@@ -30,7 +43,6 @@ label {
 input {
     width: 100%;
     padding: 12px;
-    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 14px;
@@ -38,34 +50,34 @@ input {
 
 input:focus {
     outline: none;
-    border-color: #4f46e5;
+    border-color: #333;
 }
 
-button {
+/* Botão Cadastrar */
+form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
     border: none;
     border-radius: 6px;
-    padding: 12px;
-    margin-top: 15px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-button[type="submit"] {
-    width: 100%;
-    background-color: #4f46e5;
+    background-color: #333;
     color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #3730a3;
+form button:hover {
+    background-color: #555;
 }
 
+/* Área dos clientes */
 #listaClientes {
-    max-width: 1100px;
-    margin: auto;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
+/* Card do cliente */
 .card-cliente {
     background-color: white;
     padding: 20px;
@@ -78,31 +90,45 @@ button[type="submit"]:hover {
     margin: 8px 0;
 }
 
+/* Botões do card */
 .card-cliente button {
-    width: 48%;
-    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 6px;
     color: white;
-    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+/* Botão Editar */
 .card-cliente button:first-of-type {
-    background-color: #4f46e5;
+    background-color: #333;
 }
 
+/* Botão Excluir */
 .card-cliente button:last-of-type {
-    background-color: #dc2626;
+    background-color: #777;
 }
 
 .card-cliente button:hover {
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
+/* Responsividade */
 @media (max-width: 600px) {
+
     body {
         padding: 20px;
     }
 
+    form {
+        width: 100%;
+    }
+
     .card-cliente button {
         width: 100%;
+        margin-right: 0;
     }
 }
